@@ -12,14 +12,12 @@ let lines = CSVToArray(csv.responseText)
 
 changeWord()
 
-
 function changeWord() {
     // Get a line at ramdom
     let index = Math.floor(Math.random() * (lines.length-3)) + 3
 
     let titlesElement = document.querySelector(".word-titles")
     titlesElement.innerHTML = lines[index][1].replace(/\n|\r\n/g, "<br>")
-    console.log(lines[index][1])
 
     let meaningsElement = document.querySelector(".word-meanings")
     meaningsElement.innerHTML = lines[index][2].replace(/\n|\r\n/g, "<br>")
