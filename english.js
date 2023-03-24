@@ -10,18 +10,23 @@ try {
 
 let lines = CSVToArray(csv.responseText)
 
-// Get a line at ramdom
-let index = Math.floor(Math.random() * (lines.length-3)) + 3
+changeWord()
 
-let titlesElement = document.querySelector(".word-titles")
-titlesElement.innerHTML = lines[index][1].replace(/\n|\r\n/g, "<br>")
-console.log(lines[index][1])
 
-let meaningsElement = document.querySelector(".word-meanings")
-meaningsElement.innerHTML = lines[index][2].replace(/\n|\r\n/g, "<br>")
+function changeWord() {
+    // Get a line at ramdom
+    let index = Math.floor(Math.random() * (lines.length-3)) + 3
 
-let sentencesElement = document.querySelector(".word-sentences")
-sentencesElement.innerHTML = lines[index][3].replace(/\n|\r\n/g, "<br>")
+    let titlesElement = document.querySelector(".word-titles")
+    titlesElement.innerHTML = lines[index][1].replace(/\n|\r\n/g, "<br>")
+    console.log(lines[index][1])
+
+    let meaningsElement = document.querySelector(".word-meanings")
+    meaningsElement.innerHTML = lines[index][2].replace(/\n|\r\n/g, "<br>")
+
+    let sentencesElement = document.querySelector(".word-sentences")
+    sentencesElement.innerHTML = lines[index][3].replace(/\n|\r\n/g, "<br>")
+}
 
 // https://www.bennadel.com/blog/1504-ask-ben-parsing-csv-strings-with-javascript-exec-regular-expression-command.htm
 function CSVToArray (CSV_string) {

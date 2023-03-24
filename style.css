@@ -16,6 +16,7 @@ p {
 
 .word-titles {
   font-size: 2rem;
+  color: #0044cb;
 }
 
 .word-meanings {
@@ -24,6 +25,18 @@ p {
 
 .word-sentences {
   font-size: 1.5rem;
+}
+
+.change-word {
+  display: block;
+  width: 10rem;
+  height: 3rem;
+  margin-left: auto;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  border-radius: 3rem;
+  box-shadow: 1px 1px 5px gray;
+  background-color: white;
 }
 
 footer {
