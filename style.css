@@ -2,13 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap");
 body {
   margin: 0;
-  padding: 0 20%;
+  padding: 5rem 20%;
   font-family: "Alkatra", cursive, "Kiwi Maru", serif;
 }
 
 .word {
   width: 100%;
-  margin-top: 5rem;
 }
 
 p {
@@ -20,7 +19,7 @@ p {
 }
 
 .word-meanings {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .word-sentences {
@@ -29,4 +28,10 @@ p {
 
 footer {
   margin-top: 20rem;
+}
+
+@media only screen and (max-width: 500px) {
+  body {
+    padding: 2rem 5%;
+  }
 }/*# sourceMappingURL=style.css.map */
