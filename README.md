@@ -1,6 +1,6 @@
 # EverydayEnglish on Browser
 
-This is a wep app for learning English.
+This is a web app for learning English.
 
 https://seisuke.info/english/
 
