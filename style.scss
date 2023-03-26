@@ -1,12 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+
 body {
   margin: 0;
   padding: 5rem 20%;
 
-  font-family: 'Alkatra', cursive, 'Kiwi Maru', serif;
-  line-height: 200%;
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+br {
+  display: block;
+  content: "";
+  margin: 10px 0;
 }
 
 .word {
@@ -19,17 +26,21 @@ p {
 
 .word-titles {
   font-size: 2rem;
+  line-height: 100%;
   color: #0044cb;
 }
 
 .word-meanings {
   margin-top: .8rem;
   font-size: 1.5rem;
+  line-height: 120%;
+  color: #646464;
 }
 
 .word-sentences {
   margin-top: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 120%;
 }
 
 .change-word {
@@ -55,6 +66,21 @@ footer {
 @media only screen and (max-width:500px) {
   body {
     padding: 2rem 5%;
+  }
+
+  .word-titles {
+    font-size: 1.8rem;
+    line-height: 100%;
+  }
+  
+  .word-meanings {
+    font-size: 1.3rem;
+    line-height: 120%;
+  }
+  
+  .word-sentences {
+    font-size: 1rem;
+    line-height: 120%;
   }
 
   .change-word {
