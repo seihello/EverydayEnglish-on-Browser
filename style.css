@@ -41,7 +41,8 @@ p {
 }
 
 footer {
-  margin-top: 20rem;
+  bottom: 10px;
+  margin-top: 70vh;
 }
 
 @media only screen and (max-width: 500px) {
