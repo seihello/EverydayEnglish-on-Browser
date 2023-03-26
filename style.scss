@@ -6,6 +6,7 @@ body {
   padding: 5rem 20%;
 
   font-family: 'Alkatra', cursive, 'Kiwi Maru', serif;
+  line-height: 200%;
 }
 
 .word {
@@ -22,10 +23,12 @@ p {
 }
 
 .word-meanings {
+  margin-top: .8rem;
   font-size: 1.5rem;
 }
 
 .word-sentences {
+  margin-top: 1.5rem;
   font-size: 1.5rem;
 }
 
