@@ -36,6 +36,7 @@ p {
 
 .word-sentences {
   margin-top: 1.5rem;
+  margin-bottom: 15rem;
   font-size: 1.2rem;
   line-height: 120%;
 }
@@ -53,6 +54,46 @@ p {
   cursor: pointer;
 }
 
+.btn-hover {
+  width: 200px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 55px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+}
+
+
+.btn-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+  outline: none;
+}
+
+.btn-hover.color-9 {
+  background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
   
 footer {
   bottom: 10px;
@@ -81,8 +122,14 @@ footer {
   }
 
   .change-word {
-    position: fixed;
-    bottom: 10%;
-    right: 10%;
+
+  }
+
+
+  .btn-hover {
+    width: 40%;
+    height: 50px;
+    bottom: 5%;
+    right: 3%;
   }
 }
