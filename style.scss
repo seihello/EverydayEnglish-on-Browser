@@ -17,7 +17,7 @@ br {
   margin: 10px 0;
 }
 
-.word {
+#word {
   width: 100%;
 }
 
@@ -69,6 +69,8 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  user-select: none;
 }
 
 #switch-word-buttons #previous-word {
