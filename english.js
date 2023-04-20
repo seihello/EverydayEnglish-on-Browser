@@ -1,3 +1,10 @@
+$(function() {
+  console.log("start to prepare")
+  $("#switch-word-buttons").children().eq(1).on("click", changeWord)
+})
+
+
+
 let csv = new XMLHttpRequest()
 
 csv.open("GET", "english.csv", false)
