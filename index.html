@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>Everyday English</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -15,22 +16,25 @@
 
     <main>
         <div class="word">
-            <div class="word-titles">
-            </div>
+            <div class="word-titles"></div>
+            <div class="word-meanings"></div>
+            <div class="word-sentences"></div>
 
-            <div class="word-meanings">
+            <div id="switch-word-buttons">
+                <button class="switch-word-button">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+                <button class="switch-word-button">
+                    <i class="fa-solid fa-angle-right"></i>
+                </button>
             </div>
-
-            <div class="word-sentences">
-            </div>
-
-            <button class="btn-hover color-9" onclick="changeWord()">Next Word</button>
         </div>
 
 
     </main>
 
     <script src="english.js"></script>
+    <script src="https://kit.fontawesome.com/1fb5171b7a.js" crossorigin="anonymous"></script>
 </body>
 
 

@@ -39,51 +39,24 @@ p {
   line-height: 120%;
 }
 
-.change-word {
-  display: block;
-  width: 10rem;
-  height: 3rem;
-  margin-left: auto;
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  border-radius: 3rem;
-  box-shadow: 1px 1px 5px gray;
-  background-color: white;
-  cursor: pointer;
-}
-
-.btn-hover {
-  width: 200px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 55px;
-  text-align: center;
-  border: none;
-  background-size: 300% 100%;
-  border-radius: 50px;
-  moz-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
+#switch-word-buttons {
   position: fixed;
   bottom: 10%;
   right: 20%;
+  display: flex;
+  gap: 0 3rem;
 }
 
-.btn-hover:hover {
-  background-position: 100% 0;
-  moz-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
-
-.btn-hover:focus {
-  outline: none;
-}
-
-.btn-hover.color-9 {
-  background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
-  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+.switch-word-button {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 1px 1px 10px gray;
+  background-color: white;
+  font-size: 2rem;
+  color: #25aae1;
+  cursor: pointer;
 }
 
 footer {
