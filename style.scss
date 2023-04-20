@@ -97,15 +97,14 @@ footer {
     line-height: 120%;
   }
 
-  .change-word {
-
+  #switch-word-buttons {
+    bottom: 10%;
+    right: 10%;
+    gap: 0 2rem;
   }
 
-
-  .btn-hover {
-    width: 40%;
-    height: 50px;
-    bottom: 5%;
-    right: 3%;
+  .switch-word-button {
+    width: 4rem;
+    height: 4rem;
   }
 }

@@ -87,10 +87,13 @@ footer {
     font-size: 1rem;
     line-height: 120%;
   }
-  .btn-hover {
-    width: 40%;
-    height: 50px;
-    bottom: 5%;
-    right: 3%;
+  #switch-word-buttons {
+    bottom: 10%;
+    right: 10%;
+    gap: 0 2rem;
+  }
+  .switch-word-button {
+    width: 4rem;
+    height: 4rem;
   }
 }/*# sourceMappingURL=style.css.map */
