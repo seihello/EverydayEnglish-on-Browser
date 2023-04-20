@@ -55,8 +55,15 @@ p {
   box-shadow: 1px 1px 10px gray;
   background-color: white;
   font-size: 2rem;
-  color: #25aae1;
   cursor: pointer;
+}
+
+#switch-word-buttons #previous-word {
+  color: #a7a7a7;
+}
+
+#switch-word-buttons #next-word {
+  color: #25aae1;
 }
 
 footer {

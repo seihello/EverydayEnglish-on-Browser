@@ -2,8 +2,8 @@ $(function() {
   $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
   $("#switch-word-buttons").children().eq(1).on("click", showNextWord)
 })
-
-
+const switchWordValidColor = $("#next-word").css("color")
+const switchWordInvalidColor = $("#previous-word").css("color")
 
 let csv = new XMLHttpRequest()
 
@@ -22,7 +22,7 @@ let currentIndex = -1
 showNextWord()
 
 function showPreviousWord() {
-  if(currentIndex <= 0) {
+  if(currentIndex === 0) {
     return
   }
   currentIndex--
@@ -30,6 +30,10 @@ function showPreviousWord() {
   $(".word-titles").html(word.titles)
   $(".word-meanings").html(word.meanings)
   $(".word-sentences").html(word.sentences)
+
+  if(currentIndex === 0) {
+    $("#previous-word").css("color", switchWordInvalidColor)
+  }
 }
 
 function showNextWord() {
@@ -44,6 +48,10 @@ function showNextWord() {
   $(".word-titles").html(word.titles)
   $(".word-meanings").html(word.meanings)
   $(".word-sentences").html(word.sentences)
+
+  if(currentIndex !== 0) {
+    $("#previous-word").css("color", switchWordValidColor)
+  }
 }
 
 function getNewWord() {
