@@ -41,10 +41,11 @@ function showNextWord() {
   if(currentIndex === indexes.length - 1) {
     word = getNewWord()
     indexes.push(word.index)
+    currentIndex++
   } else {
+    currentIndex++
     word = getWordByIndex(indexes[currentIndex])
   }
-  currentIndex++
   $(".word-titles").html(word.titles)
   $(".word-meanings").html(word.meanings)
   $(".word-sentences").html(word.sentences)

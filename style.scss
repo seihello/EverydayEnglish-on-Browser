@@ -61,6 +61,10 @@ p {
   background-color: white;
   font-size: 2rem;
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #switch-word-buttons #previous-word {
