@@ -68,7 +68,7 @@ p {
   transition: all 0.4s ease-in-out;
   position: fixed;
   bottom: 10%;
-  right: 10%;
+  right: 20%;
 }
 
 .btn-hover:hover {
