@@ -1,6 +1,6 @@
 $(function() {
-  console.log("start to prepare")
-  $("#switch-word-buttons").children().eq(1).on("click", changeWord)
+  $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
+  $("#switch-word-buttons").children().eq(1).on("click", showNextWord)
 })
 
 
@@ -15,22 +15,56 @@ try {
   console.log(err);
 }
 
-let lines = CSVToArray(csv.responseText)
+let wordTable = CSVToArray(csv.responseText)
+let indexes = []
+let currentIndex = -1
 
-changeWord()
+showNextWord()
 
-function changeWord() {
-    // Get a line at ramdom
-    let index = Math.floor(Math.random() * (lines.length-3)) + 3
+function showPreviousWord() {
+  if(currentIndex <= 0) {
+    return
+  }
+  currentIndex--
+  let word = getWordByIndex(indexes[currentIndex])
+  $(".word-titles").html(word.titles)
+  $(".word-meanings").html(word.meanings)
+  $(".word-sentences").html(word.sentences)
+}
 
-    let titlesElement = document.querySelector(".word-titles")
-    titlesElement.innerHTML = lines[index][1].replace(/\n|\r\n/g, "<br>")
+function showNextWord() {
+  let word;
+  if(currentIndex === indexes.length - 1) {
+    word = getNewWord()
+    indexes.push(word.index)
+  } else {
+    word = getWordByIndex(indexes[currentIndex])
+  }
+  currentIndex++
+  $(".word-titles").html(word.titles)
+  $(".word-meanings").html(word.meanings)
+  $(".word-sentences").html(word.sentences)
+}
 
-    let meaningsElement = document.querySelector(".word-meanings")
-    meaningsElement.innerHTML = lines[index][2].replace(/\n|\r\n/g, "<br>")
+function getNewWord() {
+  let newIndex = Math.floor(Math.random() * (wordTable.length-3)) + 3
+  let newWord = {
+    index: newIndex,
+    titles: wordTable[newIndex][1].replace(/\n|\r\n/g, "<br>"),
+    meanings: wordTable[newIndex][2].replace(/\n|\r\n/g, "<br>"),
+    sentences: wordTable[newIndex][3].replace(/\n|\r\n/g, "<br>")
+  }
+  return newWord
+}
 
-    let sentencesElement = document.querySelector(".word-sentences")
-    sentencesElement.innerHTML = lines[index][3].replace(/\n|\r\n/g, "<br>")
+function getWordByIndex(index) {
+  let word = {
+    index: index,
+    titles: wordTable[index][1].replace(/\n|\r\n/g, "<br>"),
+    meanings: wordTable[index][2].replace(/\n|\r\n/g, "<br>"),
+    sentences: wordTable[index][3].replace(/\n|\r\n/g, "<br>")
+  }
+  return word
 }
 
 // https://www.bennadel.com/blog/1504-ask-ben-parsing-csv-strings-with-javascript-exec-regular-expression-command.htm
