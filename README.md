@@ -2,6 +2,6 @@
 
 This is a web app for learning English.
 
-https://seisuke.info/english/
+https://seisuke.info/eng/
 
-<img width="957" alt="Screen Shot 2023-03-24 at 9 34 02" src="https://user-images.githubusercontent.com/34885995/227586249-4c671e46-6958-4804-90ea-0f473f444df0.png">
+<img width="957" src="https://user-images.githubusercontent.com/34885995/233229214-d5bbee65-d872-4a2b-a4e7-24ddefc60c5a.png">
