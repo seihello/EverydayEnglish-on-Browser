@@ -1,13 +1,5 @@
-$(function() {
-  $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
-  $("#switch-word-buttons").children().eq(1).on("click", showNextWord)
-  $("article").children().on("click", (e) => {
-    e.preventDefault()
-  })
-
-})
-const switchWordValidColor = $("#next-word").css("color")
-const switchWordInvalidColor = $("#previous-word").css("color")
+let switchWordValidColor
+let switchWordInvalidColor
 
 let csv = new XMLHttpRequest()
 
@@ -22,8 +14,35 @@ try {
 let wordTable = CSVToArray(csv.responseText)
 let indexes = []
 let currentIndex = -1
+let currentLevels = [1, 2, 3, 4, 5]
 
 showNextWord()
+
+
+
+$(function() {
+  $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
+  $("#switch-word-buttons").children().eq(1).on("click", showNextWord)
+  $("article").children().on("click", (e) => {
+    e.preventDefault()
+  })
+  switchWordValidColor = $("#next-word").css("color")
+  switchWordInvalidColor = $("#previous-word").css("color")
+
+  $("#apply-button").on("click", () => {
+    currentLevels = []
+    $("input[name=level]:checked").each((index, checkedLevel) => {
+      currentLevels.push(Number($(checkedLevel).val()))
+    })
+    resetWords()
+    showNextWord()
+  })
+})
+
+function resetWords() {
+  indexes = []
+  currentIndex = -1
+}
 
 function showPreviousWord() {
   if(currentIndex === 0) {
@@ -35,9 +54,7 @@ function showPreviousWord() {
   $(".word-meanings").html(word.meanings)
   $(".word-sentences").html(word.sentences)
 
-  if(currentIndex === 0) {
-    $("#previous-word").css("color", switchWordInvalidColor)
-  }
+  setSwitchWordButtonColor()
 }
 
 function showNextWord() {
@@ -54,20 +71,27 @@ function showNextWord() {
   $(".word-meanings").html(word.meanings)
   $(".word-sentences").html(word.sentences)
 
-  if(currentIndex !== 0) {
-    $("#previous-word").css("color", switchWordValidColor)
-  }
+  setSwitchWordButtonColor()
 }
 
 function getNewWord() {
-  let newIndex = Math.floor(Math.random() * (wordTable.length-3)) + 3
-  let newWord = {
-    index: newIndex,
-    titles: wordTable[newIndex][1].replace(/\n|\r\n/g, "<br>"),
-    meanings: wordTable[newIndex][2].replace(/\n|\r\n/g, "<br>"),
-    sentences: wordTable[newIndex][3].replace(/\n|\r\n/g, "<br>")
+
+  while(true) {
+    let newIndex = Math.floor(Math.random() * (wordTable.length-3)) + 3
+    let newWord = {
+      index: newIndex,
+      titles: wordTable[newIndex][1].replace(/\n|\r\n/g, "<br>"),
+      meanings: wordTable[newIndex][2].replace(/\n|\r\n/g, "<br>"),
+      sentences: wordTable[newIndex][3].replace(/\n|\r\n/g, "<br>")
+    }
+    
+    const level = Number(wordTable[newIndex][6].replace(/\n|\r\n/g, "<br>"))
+    if(currentLevels.includes(level)) {
+      return newWord
+    } else {
+      continue
+    }
   }
-  return newWord
 }
 
 function getWordByIndex(index) {
@@ -78,6 +102,14 @@ function getWordByIndex(index) {
     sentences: wordTable[index][3].replace(/\n|\r\n/g, "<br>")
   }
   return word
+}
+
+function setSwitchWordButtonColor() {
+  if(currentIndex === 0) {
+    $("#previous-word").css("color", switchWordInvalidColor)
+  } else {
+    $("#previous-word").css("color", switchWordValidColor)
+  }
 }
 
 // https://www.bennadel.com/blog/1504-ask-ben-parsing-csv-strings-with-javascript-exec-regular-expression-command.htm
