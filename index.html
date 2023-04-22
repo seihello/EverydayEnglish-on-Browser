@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>Everyday English</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 
 <body>
@@ -15,21 +15,35 @@
     </header>
 
     <main>
-        <div id="word">
-            <div class="word-titles"></div>
-            <div class="word-meanings"></div>
-            <div class="word-sentences"></div>
-        </div>
-        <div id="switch-word-buttons">
-            <button class="switch-word-button" id="previous-word">
-                <i class="fa-solid fa-angle-left"></i>
-            </button>
-            <button class="switch-word-button">
-                <i class="fa-solid fa-angle-right" id="next-word"></i>
-            </button>
-        </div>
-
-
+        <aside>
+            <h3>Filter</h3>
+            <br>
+            <div id="filters">
+                Level
+                <div class="filter">
+                    <label for="level1"><input type="checkbox" name="level" id="level1">1</label>
+                    <label for="level2"><input type="checkbox" name="level" id="level2">2</label>
+                    <label for="level3"><input type="checkbox" name="level" id="level3">3</label>
+                    <label for="level4"><input type="checkbox" name="level" id="level4">4</label>
+                    <label for="level5"><input type="checkbox" name="level" id="level5">5</label>
+                </div>
+            </div>
+        </aside>
+        <article>
+            <div id="word">
+                <div class="word-titles"></div>
+                <div class="word-meanings"></div>
+                <div class="word-sentences"></div>
+            </div>
+            <div id="switch-word-buttons">
+                <button class="switch-word-button" id="previous-word">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+                <button class="switch-word-button">
+                    <i class="fa-solid fa-angle-right" id="next-word"></i>
+                </button>
+            </div>
+        </article>
     </main>
 
     <script src="english.js"></script>

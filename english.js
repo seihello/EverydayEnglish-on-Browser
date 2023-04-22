@@ -1,9 +1,10 @@
 $(function() {
   $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
   $("#switch-word-buttons").children().eq(1).on("click", showNextWord)
-  $("html").children().on("click", (e) => {
+  $("article").children().on("click", (e) => {
     e.preventDefault()
   })
+
 })
 const switchWordValidColor = $("#next-word").css("color")
 const switchWordInvalidColor = $("#previous-word").css("color")
