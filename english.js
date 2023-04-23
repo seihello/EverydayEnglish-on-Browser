@@ -16,6 +16,7 @@ let indexes = []
 let currentIndex = -1
 let currentLevels = [1, 2, 3, 4, 5]
 
+getAppliedWords()
 showNextWord()
 
 
@@ -35,6 +36,7 @@ $(function() {
       currentLevels.push(Number($(checkedLevel).val()))
     })
     resetWords()
+    getAppliedWords()
     showNextWord()
   })
 })
@@ -45,37 +47,28 @@ function resetWords() {
 }
 
 function showPreviousWord() {
-  if(currentIndex === 0) {
-    return
+  if(currentIndex - 1 >= 0) {
+    currentIndex--
+    let word = getWordByIndex(indexes[currentIndex])
+    $(".word-titles").html(word.titles)
+    $(".word-meanings").html(word.meanings)
+    $(".word-sentences").html(word.sentences)
   }
-  currentIndex--
-  let word = getWordByIndex(indexes[currentIndex])
-  $(".word-titles").html(word.titles)
-  $(".word-meanings").html(word.meanings)
-  $(".word-sentences").html(word.sentences)
-
   setSwitchWordButtonColor()
 }
 
 function showNextWord() {
-  let word;
-  if(currentIndex === indexes.length - 1) {
-    word = getNewWord()
-    indexes.push(word.index)
+  if(currentIndex + 1 < indexes.length) {
     currentIndex++
-  } else {
-    currentIndex++
-    word = getWordByIndex(indexes[currentIndex])
+    let word = getWordByIndex(indexes[currentIndex])
+    $(".word-titles").html(word.titles)
+    $(".word-meanings").html(word.meanings)
+    $(".word-sentences").html(word.sentences)
   }
-  $(".word-titles").html(word.titles)
-  $(".word-meanings").html(word.meanings)
-  $(".word-sentences").html(word.sentences)
-
   setSwitchWordButtonColor()
 }
 
 function getNewWord() {
-
   while(true) {
     let newIndex = Math.floor(Math.random() * (wordTable.length-3)) + 3
     let newWord = {
@@ -94,12 +87,30 @@ function getNewWord() {
   }
 }
 
+function getAppliedWords() {
+  indexes = []
+  
+  for(wordLine in wordTable) {
+    // Ignore the header of the file
+    if(wordLine <= 1) {
+      continue
+    }
+    const word = getWordByIndex(Number(wordLine))
+    if(currentLevels.includes(word.level)) {
+      indexes.push(wordLine)
+    }
+  }
+
+  console.log(indexes)
+}
+
 function getWordByIndex(index) {
   let word = {
     index: index,
     titles: wordTable[index][1].replace(/\n|\r\n/g, "<br>"),
     meanings: wordTable[index][2].replace(/\n|\r\n/g, "<br>"),
-    sentences: wordTable[index][3].replace(/\n|\r\n/g, "<br>")
+    sentences: wordTable[index][3].replace(/\n|\r\n/g, "<br>"),
+    level: Number(wordTable[index][6].replace(/\n|\r\n/g, "<br>"))
   }
   return word
 }
@@ -109,6 +120,11 @@ function setSwitchWordButtonColor() {
     $("#previous-word").css("color", switchWordInvalidColor)
   } else {
     $("#previous-word").css("color", switchWordValidColor)
+  }
+  if(currentIndex === indexes.length - 1) {
+    $("#next-word").css("color", switchWordInvalidColor)
+  } else {
+    $("#next-word").css("color", switchWordValidColor)
   }
 }
 
