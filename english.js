@@ -1,25 +1,13 @@
 let switchWordValidColor
 let switchWordInvalidColor
-
-let csv = new XMLHttpRequest()
-
-csv.open("GET", "english.csv", false)
- 
-try {
-  csv.send(null);
-} catch (err) {
-  console.log(err);
-}
-
-let wordTable = CSVToArray(csv.responseText)
 let indexes = []
 let currentIndex = -1
 let currentLevels = [1, 2, 3, 4, 5]
+let isMobile = false
 
+const wordTable = getWordTable()
 getAppliedWords()
 showNextWord()
-
-let isMobile = false
 
 $(function() {
   $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
@@ -124,6 +112,20 @@ function setSwitchWordButtonColor() {
   } else {
     $("#next-word").css("color", switchWordValidColor)
   }
+}
+
+function getWordTable() {
+  let csv = new XMLHttpRequest()
+  csv.open("GET", "english.csv", false)
+  
+  try {
+    csv.send(null);
+  } catch (err) {
+    console.log(err);
+  }
+  
+  let table = CSVToArray(csv.responseText)
+  return table
 }
 
 // https://www.bennadel.com/blog/1504-ask-ben-parsing-csv-strings-with-javascript-exec-regular-expression-command.htm
