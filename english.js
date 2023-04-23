@@ -39,10 +39,10 @@ $(function() {
   })
 
   $("#filter-img").on("click", () => {
-    $("aside").css("display", "flex")
+    $("aside").slideDown(200)
   })
   $("#close-box").on("click", () => {
-    $("aside").css("display", "none")
+    $("aside").slideUp(200)
   })
 })
 
