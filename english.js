@@ -19,7 +19,7 @@ let currentLevels = [1, 2, 3, 4, 5]
 getAppliedWords()
 showNextWord()
 
-
+let isMobile = false
 
 $(function() {
   $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
@@ -30,6 +30,12 @@ $(function() {
   switchWordValidColor = $("#next-word").css("color")
   switchWordInvalidColor = $("#previous-word").css("color")
 
+  if($("aside").css("display") === "none") {
+    isMobile = true
+  } else {
+    isMobile = false
+  }
+
   $("#apply-button").on("click", () => {
     currentLevels = []
     $("input[name=level]:checked").each((index, checkedLevel) => {
@@ -38,6 +44,17 @@ $(function() {
     resetWords()
     getAppliedWords()
     showNextWord()
+
+    if(isMobile) {
+      $("aside").css("display", "none")
+    }
+  })
+
+  $("#filter-img").on("click", () => {
+    $("aside").css("display", "flex")
+  })
+  $("#close-box").on("click", () => {
+    $("aside").css("display", "none")
   })
 })
 
