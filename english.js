@@ -30,6 +30,13 @@ $(function() {
   $("input[name=tag-all]").on("click", () => {
     $("input[name=tag]").prop("checked", $("input[name=tag-all]").prop("checked"))
   })
+  $("input[name=tag]").on("click", () => {
+    if($("input[name=tag]:checked").length === tags.length) {
+      $("input[name=tag-all]").prop("checked", true)
+    } else {
+      $("input[name=tag-all]").prop("checked", false)
+    }
+  })
 
   $("#apply-button").on("click", () => {
     currentLevels = []
