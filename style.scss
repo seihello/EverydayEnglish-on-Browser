@@ -184,7 +184,7 @@ footer {
   aside {
     display: none;
     width: 100%;
-    height: 250px;
+    height: 500px;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -211,6 +211,7 @@ footer {
 
   .filter {
     flex-direction: row;
+    flex-wrap: wrap
   }
 
   input[type=checkbox] {
