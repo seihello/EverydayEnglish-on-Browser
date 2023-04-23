@@ -17,7 +17,7 @@ body {
   font-family: 'Lexend Deca', sans-serif, Helvetica;
 }
 
-main {
+#content {
   width: 50%;
   margin: 5rem auto;
   
@@ -132,7 +132,7 @@ footer {
 
 @media only screen and (max-width:500px) {
 
-  main {
+  #content {
     width: 90%;
     margin-top: 1rem;
   }
