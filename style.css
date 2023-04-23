@@ -32,7 +32,7 @@ aside {
 }
 
 input[type=checkbox] {
-  margin-right: 0.5rem;
+  margin-right: 0.3rem;
 }
 
 br {
@@ -187,10 +187,17 @@ footer {
   #filters-title {
     display: none;
   }
+  .filter {
+    flex-direction: row;
+  }
+  input[type=checkbox] {
+    margin-left: 1rem;
+  }
   #apply-button {
     display: block;
-    margin-right: 0;
-    margin-left: auto;
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
   }
   main {
     width: 100%;
