@@ -119,8 +119,15 @@ footer {
 }
 
 @media only screen and (max-width: 500px) {
-  body {
-    padding: 2rem 5%;
+  main {
+    width: 90%;
+    margin-top: 1rem;
+  }
+  aside {
+    display: none;
+  }
+  article {
+    width: 100%;
   }
   .word-titles {
     font-size: 1.8rem;

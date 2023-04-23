@@ -100,8 +100,6 @@ function getAppliedWords() {
       indexes.push(wordLine)
     }
   }
-
-  console.log(indexes)
 }
 
 function getWordByIndex(index) {
