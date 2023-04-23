@@ -3,9 +3,12 @@ let switchWordInvalidColor
 let indexes = []
 let currentIndex = -1
 let currentLevels = [1, 2, 3, 4, 5]
+let tags = []
+let currentTags = []
 let isMobile = false
 
 const wordTable = getWordTable()
+extractTags()
 getAppliedWords()
 showNextWord()
 
@@ -24,11 +27,20 @@ $(function() {
     isMobile = false
   }
 
+  $("input[name=tag-all]").on("click", () => {
+    $("input[name=tag]").prop("checked", $("input[name=tag-all]").prop("checked"))
+  })
+
   $("#apply-button").on("click", () => {
     currentLevels = []
     $("input[name=level]:checked").each((index, checkedLevel) => {
       currentLevels.push(Number($(checkedLevel).val()))
     })
+    currentTags = []
+    $("input[name=tag]:checked").each((index, checkedTag) => {
+      currentTags.push($(checkedTag).val())
+    })
+
     resetWords()
     getAppliedWords()
     showNextWord()
@@ -55,6 +67,7 @@ function showPreviousWord() {
   if(currentIndex - 1 >= 0) {
     currentIndex--
     let word = getWordByIndex(indexes[currentIndex])
+    console.log(word)
     $(".word-titles").html(word.titles)
     $(".word-meanings").html(word.meanings)
     $(".word-sentences").html(word.sentences)
@@ -66,6 +79,7 @@ function showNextWord() {
   if(currentIndex + 1 < indexes.length) {
     currentIndex++
     let word = getWordByIndex(indexes[currentIndex])
+    console.log(word)
     $(".word-titles").html(word.titles)
     $(".word-meanings").html(word.meanings)
     $(".word-sentences").html(word.sentences)
@@ -82,7 +96,7 @@ function getAppliedWords() {
       continue
     }
     const word = getWordByIndex(Number(wordLine))
-    if(currentLevels.includes(word.level)) {
+    if(meetsFilterConditions(word)) {
       indexes.push(wordLine)
     }
   }
@@ -96,7 +110,8 @@ function getWordByIndex(index) {
     titles: wordTable[index][1].replace(/\n|\r\n/g, "<br>"),
     meanings: wordTable[index][2].replace(/\n|\r\n/g, "<br>"),
     sentences: wordTable[index][3].replace(/\n|\r\n/g, "<br>"),
-    level: Number(wordTable[index][6].replace(/\n|\r\n/g, "<br>"))
+    level: Number(wordTable[index][6].replace(/\n|\r\n/g, "<br>")),
+    tags: wordTable[index][5].replace(/\n|\r\n/g, "<br>").split("、")
   }
   return word
 }
@@ -126,6 +141,53 @@ function getWordTable() {
   
   let table = CSVToArray(csv.responseText)
   return table
+}
+
+function extractTags() {
+  for(wordLine in wordTable) {
+    // Ignore the header of the file
+    if(wordLine <= 1) {
+      continue
+    }
+    const tagsText = wordTable[wordLine][5].replace(/\n|\r\n/g, "<br>")
+    if(tagsText === "") {
+      if(!tags.includes("")) {
+        tags.unshift("")
+      }
+    }
+    tagsArray = tagsText.split("、")
+    for(const tag of tagsArray) {
+      if(!tags.includes(tag)) {
+        tags.push(tag)
+      }
+    }
+  }
+
+  tags.forEach((tag, index) => {
+    if(tag !== "") {
+      const newElementStr = `<label for="tag${index}"><input type="checkbox" name="tag" id="tag${index}" value="${tag}" checked>${tag}</label>`
+      $("#tag-filter").append($(newElementStr))
+    } else {
+      const newElementStr = `<label for="tag${index}"><input type="checkbox" name="tag" id="tag${index}" value="${tag}" checked>タグなし</label>`
+      $("#tag-filter").append($(newElementStr))
+    }
+  })
+
+  currentTags = [...tags]
+}
+
+function meetsFilterConditions(word) {
+  if(currentLevels.length === 0 || currentTags.length === 0) {
+    return false
+  }
+  if(currentLevels.includes(word.level)) {
+    for(const wordTag of word.tags) {
+      if(currentTags.includes(wordTag)) {
+        return true
+      }
+    }
+  }
+  return false
 }
 
 // https://www.bennadel.com/blog/1504-ask-ben-parsing-csv-strings-with-javascript-exec-regular-expression-command.htm
