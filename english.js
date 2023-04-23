@@ -68,25 +68,6 @@ function showNextWord() {
   setSwitchWordButtonColor()
 }
 
-function getNewWord() {
-  while(true) {
-    let newIndex = Math.floor(Math.random() * (wordTable.length-3)) + 3
-    let newWord = {
-      index: newIndex,
-      titles: wordTable[newIndex][1].replace(/\n|\r\n/g, "<br>"),
-      meanings: wordTable[newIndex][2].replace(/\n|\r\n/g, "<br>"),
-      sentences: wordTable[newIndex][3].replace(/\n|\r\n/g, "<br>")
-    }
-    
-    const level = Number(wordTable[newIndex][6].replace(/\n|\r\n/g, "<br>"))
-    if(currentLevels.includes(level)) {
-      return newWord
-    } else {
-      continue
-    }
-  }
-}
-
 function getAppliedWords() {
   indexes = []
   
@@ -100,6 +81,8 @@ function getAppliedWords() {
       indexes.push(wordLine)
     }
   }
+
+  indexes = shuffle(indexes)
 }
 
 function getWordByIndex(index) {
@@ -168,3 +151,22 @@ function CSVToArray (CSV_string) {
     }
     return rows; // Return the parsed data Array
  }
+
+ // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
