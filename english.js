@@ -60,7 +60,7 @@ $(function() {
   $("#filter-img").on("click", () => {
     $("aside").slideDown(200)
   })
-  $("#close-box").on("click", () => {
+  $("#close-img").on("click", () => {
     $("aside").slideUp(200)
   })
 })

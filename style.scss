@@ -62,7 +62,7 @@ br {
   width: auto;
 }
 
-#close-box {
+#close-img {
   display: none;
 }
 
@@ -193,22 +193,20 @@ footer {
     position: absolute;
     top: 0px;
     left: 0px;
-    padding: 0 1rem 3rem;
+    padding: 1.5rem 1rem 4rem;
 
     background-color: rgb(232, 232, 232);
     border-radius: 5px;
     z-index: 99;
   }
 
-  #close-box {
+  #close-img {
     display: block;
-    width: 60px;
-    height: 60px;
-    margin-left: auto;
-    margin-right: 0;
-    line-height: 1;
-    font-size: 3rem;
-    text-align: right;
+    width: 50px;
+    height: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   #filters-title {
