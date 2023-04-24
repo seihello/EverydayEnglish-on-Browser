@@ -73,11 +73,7 @@ function resetWords() {
 function showPreviousWord() {
   if(currentIndex - 1 >= 0) {
     currentIndex--
-    let word = getWordByIndex(indexes[currentIndex])
-    console.log(word)
-    $(".word-titles").html(word.titles)
-    $(".word-meanings").html(word.meanings)
-    $(".word-sentences").html(word.sentences)
+    setWordToElement(getWordByIndex(indexes[currentIndex]))
   }
   setSwitchWordButtonColor()
 }
@@ -85,13 +81,25 @@ function showPreviousWord() {
 function showNextWord() {
   if(currentIndex + 1 < indexes.length) {
     currentIndex++
-    let word = getWordByIndex(indexes[currentIndex])
-    console.log(word)
-    $(".word-titles").html(word.titles)
-    $(".word-meanings").html(word.meanings)
-    $(".word-sentences").html(word.sentences)
+    setWordToElement(getWordByIndex(indexes[currentIndex]))
   }
   setSwitchWordButtonColor()
+}
+
+function setWordToElement(word) {
+  console.log(word)
+  $(".word-tags").empty()
+  for(const tag of word.tags) {
+    if(tag !== "") {
+      const wordTagElement = document.createElement("div")
+      wordTagElement.classList.add("word-tag")
+      wordTagElement.innerText = tag
+      $(".word-tags").append(wordTagElement)
+    }
+  }
+  $(".word-titles").html(word.titles)
+  $(".word-meanings").html(word.meanings)
+  $(".word-sentences").html(word.sentences)
 }
 
 function getAppliedWords() {

@@ -120,9 +120,29 @@ br {
 
 .word-sentences {
   margin-top: 1.5rem;
-  margin-bottom: 15rem;
   font-size: 1.2rem;
   line-height: 120%;
+}
+
+.word-tags {
+  height: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0 .5rem;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 15rem;
+}
+
+.word-tag {
+  background-color: #d4562f;
+  box-shadow: 1px 1px 3px $gray;
+  color: white;
+  text-align: center;
+  padding: .2rem 1rem;
+  border-radius: 3rem;
+  font-weight: 500;
 }
 
 #switch-word-buttons {
