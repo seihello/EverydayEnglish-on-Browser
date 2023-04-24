@@ -37,6 +37,16 @@ $(function() {
       $("input[name=tag-all]").prop("checked", false)
     }
   })
+  $("input[name=level-all]").on("click", () => {
+    $("input[name=level]").prop("checked", $("input[name=level-all]").prop("checked"))
+  })
+  $("input[name=level]").on("click", () => {
+    if($("input[name=level]:checked").length === 5) {
+      $("input[name=level-all]").prop("checked", true)
+    } else {
+      $("input[name=level-all]").prop("checked", false)
+    }
+  })
 
   $("#apply-button").on("click", () => {
     currentLevels = []
