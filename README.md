@@ -4,4 +4,4 @@ This is a web app for learning English.
 
 https://seisuke.info/eng/
 
-<img width="957" src="https://user-images.githubusercontent.com/34885995/233229214-d5bbee65-d872-4a2b-a4e7-24ddefc60c5a.png">
+<img width="957" src="https://user-images.githubusercontent.com/34885995/233893389-3b50fb9b-d453-40c3-a467-1176f38cf8dd.png">
