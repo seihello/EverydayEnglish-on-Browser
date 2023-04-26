@@ -1,5 +1,5 @@
-let switchWordValidColor
-let switchWordInvalidColor
+let switchWordValidColor = ""
+let switchWordInvalidColor = ""
 let indexes = []
 let currentIndex = -1
 let currentLevels = [1, 2, 3, 4, 5]
@@ -8,11 +8,15 @@ let currentTags = []
 let isMobile = false
 
 const wordTable = getWordTable()
-extractTags()
-getAppliedWords()
-showNextWord()
 
 $(function() {
+
+  extractTags()
+  loadUserSetting()
+  applyUserSettingToCheckbox()
+  getAppliedWords()
+  showNextWord()
+
   $("#switch-word-buttons").children().eq(0).on("click", showPreviousWord)
   $("#switch-word-buttons").children().eq(1).on("click", showNextWord)
   $("article").children().on("click", (e) => {
@@ -31,21 +35,13 @@ $(function() {
     $("input[name=tag]").prop("checked", $("input[name=tag-all]").prop("checked"))
   })
   $("input[name=tag]").on("click", () => {
-    if($("input[name=tag]:checked").length === tags.length) {
-      $("input[name=tag-all]").prop("checked", true)
-    } else {
-      $("input[name=tag-all]").prop("checked", false)
-    }
+    toggleSelectAllCheckbox()
   })
   $("input[name=level-all]").on("click", () => {
     $("input[name=level]").prop("checked", $("input[name=level-all]").prop("checked"))
   })
   $("input[name=level]").on("click", () => {
-    if($("input[name=level]:checked").length === 5) {
-      $("input[name=level-all]").prop("checked", true)
-    } else {
-      $("input[name=level-all]").prop("checked", false)
-    }
+    toggleSelectAllCheckbox()
   })
 
   $("#apply-button").on("click", () => {
@@ -61,6 +57,7 @@ $(function() {
     resetWords()
     getAppliedWords()
     showNextWord()
+    storeUserSetting()
 
     if(isMobile) {
       $("aside").css("display", "none")
@@ -213,6 +210,60 @@ function meetsFilterConditions(word) {
     }
   }
   return false
+}
+
+function applyUserSettingToCheckbox() {
+  $("input[name=level]").each((index, levelElement) => {
+    if(currentLevels.includes(Number($(levelElement).val()))) {
+      $(levelElement).prop("checked", true)
+    } else {
+      $(levelElement).prop("checked", false)
+    }
+  })
+  $("input[name=tag]").each((index, tagElement) => {
+    if(currentTags.includes($(tagElement).val())) {
+      $(tagElement).prop("checked", true)
+    } else {
+      $(tagElement).prop("checked", false)
+    }
+  })
+
+  toggleSelectAllCheckbox()
+}
+
+function storeUserSetting() {
+  localStorage.setItem("levels", JSON.stringify(currentLevels))
+  localStorage.setItem("tags", JSON.stringify(currentTags))
+}
+
+function loadUserSetting() {
+  let currentLevelsJSON = localStorage.getItem("levels")
+
+  // If data exists
+  if(currentLevelsJSON !== null) {
+    currentLevels = JSON.parse(currentLevelsJSON)
+  }
+
+  let currentTagsJSON = localStorage.getItem("tags")
+
+  // If data exists
+  if(currentTagsJSON !== null) {
+    currentTags = JSON.parse(currentTagsJSON)
+  }
+}
+
+function toggleSelectAllCheckbox() {
+  if($("input[name=level]:checked").length === 5) {
+    $("input[name=level-all]").prop("checked", true)
+  } else {
+    $("input[name=level-all]").prop("checked", false)
+  }
+
+  if($("input[name=tag]:checked").length === tags.length) {
+    $("input[name=tag-all]").prop("checked", true)
+  } else {
+    $("input[name=tag-all]").prop("checked", false)
+  }
 }
 
 // https://www.bennadel.com/blog/1504-ask-ben-parsing-csv-strings-with-javascript-exec-regular-expression-command.htm
