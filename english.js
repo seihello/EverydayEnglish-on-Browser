@@ -6,6 +6,9 @@ let currentLevels = [1, 2, 3, 4, 5]
 let tags = []
 let currentTags = []
 let isMobile = false
+let favoriteIndex = []
+let displaysFavorite = false
+let displaysNonFavorite = false
 
 const wordTable = getWordTable()
 
@@ -44,25 +47,7 @@ $(function() {
     toggleSelectAllCheckbox()
   })
 
-  $("#apply-button").on("click", () => {
-    currentLevels = []
-    $("input[name=level]:checked").each((index, checkedLevel) => {
-      currentLevels.push(Number($(checkedLevel).val()))
-    })
-    currentTags = []
-    $("input[name=tag]:checked").each((index, checkedTag) => {
-      currentTags.push($(checkedTag).val())
-    })
-
-    resetWords()
-    getAppliedWords()
-    showNextWord()
-    storeUserSetting()
-
-    if(isMobile) {
-      $("aside").css("display", "none")
-    }
-  })
+  $("#apply-button").on("click", updateWords)
 
   $("#filter-img").on("click", () => {
     $("aside").slideDown(200)
@@ -70,7 +55,38 @@ $(function() {
   $("#close-img").on("click", () => {
     $("aside").slideUp(200)
   })
+
+
+  $("#favorite-image").on("click", () => {
+    const indexOfDisplayedWord = favoriteIndex.indexOf(indexes[currentIndex])
+    if(indexOfDisplayedWord !== -1) {
+      favoriteIndex.splice(indexOfDisplayedWord, 1)
+    } else {
+      favoriteIndex.push(indexes[currentIndex])
+    }
+    updateFavoriteIcon(getWordByIndex(indexes[currentIndex]).index)
+  })
 })
+
+function updateWords() {
+  currentLevels = []
+  $("input[name=level]:checked").each((index, checkedLevel) => {
+    currentLevels.push(Number($(checkedLevel).val()))
+  })
+  currentTags = []
+  $("input[name=tag]:checked").each((index, checkedTag) => {
+    currentTags.push($(checkedTag).val())
+  })
+
+  resetWords()
+  getAppliedWords()
+  showNextWord()
+  storeUserSetting()
+
+  if(isMobile) {
+    $("aside").css("display", "none")
+  }
+}
 
 function resetWords() {
   indexes = []
@@ -82,6 +98,7 @@ function showPreviousWord() {
     currentIndex--
     setWordToElement(getWordByIndex(indexes[currentIndex]))
   }
+  updateFavoriteIcon(indexes[currentIndex])
   setSwitchWordButtonColor()
 }
 
@@ -90,6 +107,7 @@ function showNextWord() {
     currentIndex++
     setWordToElement(getWordByIndex(indexes[currentIndex]))
   }
+  updateFavoriteIcon(indexes[currentIndex])
   setSwitchWordButtonColor()
 }
 
@@ -111,7 +129,9 @@ function setWordToElement(word) {
 
 function getAppliedWords() {
   indexes = []
-  
+  displaysFavorite = $("input[name=favorite]").prop("checked")
+  displaysNonFavorite = $("input[name=not-favorite]").prop("checked")
+
   for(wordLine in wordTable) {
     // Ignore the header of the file
     if(wordLine <= 1) {
@@ -119,7 +139,7 @@ function getAppliedWords() {
     }
     const word = getWordByIndex(Number(wordLine))
     if(meetsFilterConditions(word)) {
-      indexes.push(wordLine)
+      indexes.push(Number(wordLine))
     }
   }
 
@@ -205,11 +225,22 @@ function meetsFilterConditions(word) {
   if(currentLevels.includes(word.level)) {
     for(const wordTag of word.tags) {
       if(currentTags.includes(wordTag)) {
-        return true
+        return meetsFavorite(word)
       }
     }
   }
+
   return false
+}
+
+function meetsFavorite(word) {
+  if(displaysFavorite && favoriteIndex.includes(word.index)) {
+    return true
+  } else if(displaysNonFavorite && !favoriteIndex.includes(word.index)) {
+      return true
+  } else {
+    return false
+  }
 }
 
 function applyUserSettingToCheckbox() {
@@ -263,6 +294,14 @@ function toggleSelectAllCheckbox() {
     $("input[name=tag-all]").prop("checked", true)
   } else {
     $("input[name=tag-all]").prop("checked", false)
+  }
+}
+
+function updateFavoriteIcon(index) {
+  if(favoriteIndex.includes(index)) {
+    $("#favorite-image").prop("src", "img/favorite.png")
+  } else {
+    $("#favorite-image").prop("src", "img/not-favorite.png")
   }
 }
 

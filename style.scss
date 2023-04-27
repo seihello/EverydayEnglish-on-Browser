@@ -105,10 +105,22 @@ br {
   width: 100%;
 }
 
+#word-titles-box {
+  display: flex;
+  align-items: center;
+  gap: 0 .5rem;
+}
+
 .word-titles {
   font-size: 2rem;
   line-height: 100%;
   color: $dark-blue;
+}
+
+#favorite-image {
+  width: 1.8rem;
+  height: auto;
+  cursor: pointer;
 }
 
 .word-meanings {
@@ -255,6 +267,8 @@ footer {
   .word-titles {
     font-size: 1.8rem;
     line-height: 100%;
+    display: none;
+    background-color: #d4562f;
   }
   
   .word-meanings {

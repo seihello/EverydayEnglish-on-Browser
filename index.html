@@ -32,6 +32,11 @@
                 <div class="filter" id="tag-filter">
                     <label for="tag-all"><input type="checkbox" name="tag-all" id="tag-all" checked>Select All</label>
                 </div>
+                <p class="filter-title">Favorite</p>
+                <div class="filter" id="favorite-filter">
+                    <label for="favorite"><input type="checkbox" name="favorite" id="favorite" checked>Favorite</label>
+                    <label for="not-favorite"><input type="checkbox" name="not-favorite" id="not-favorite" checked>Not Favorite</label>
+                </div>
             </div>
             <button id="apply-button">Apply</button>
         </aside>
@@ -41,7 +46,10 @@
             </div>
             <article>
                 <div id="word">
-                    <div class="word-titles"></div>
+                    <div id="word-titles-box">
+                        <div class="word-titles"></div>
+                        <img id="favorite-image" src="img/not-favorite.png">
+                    </div>
                     <div class="word-meanings"></div>
                     <div class="word-sentences"></div>
                     <div class="word-tags"></div>
