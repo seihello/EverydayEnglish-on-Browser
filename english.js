@@ -19,7 +19,6 @@ $(function() {
 
   extractTags()
   loadUserSetting()
-  console.log(filter)
   applyUserSettingToCheckbox()
   getAppliedWords()
   showNextWord()
