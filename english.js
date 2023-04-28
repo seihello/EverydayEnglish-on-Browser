@@ -2,13 +2,16 @@ let switchWordValidColor = ""
 let switchWordInvalidColor = ""
 let indexes = []
 let currentIndex = -1
-let currentLevels = [1, 2, 3, 4, 5]
 let tags = []
-let currentTags = []
 let isMobile = false
 let favoriteIndex = []
-let displaysFavorite = false
-let displaysNonFavorite = false
+
+
+let filter = {
+  tags: [],
+  levels: [1, 2, 3, 4, 5],
+  favorites: {favorite: false, nonfavorite: false}
+}
 
 const wordTable = getWordTable()
 
@@ -16,6 +19,7 @@ $(function() {
 
   extractTags()
   loadUserSetting()
+  console.log(filter)
   applyUserSettingToCheckbox()
   getAppliedWords()
   showNextWord()
@@ -65,18 +69,21 @@ $(function() {
       favoriteIndex.push(indexes[currentIndex])
     }
     updateFavoriteIcon(getWordByIndex(indexes[currentIndex]).index)
+    storeFavoriteWords()
   })
 })
 
 function updateWords() {
-  currentLevels = []
+  filter.levels = []
   $("input[name=level]:checked").each((index, checkedLevel) => {
-    currentLevels.push(Number($(checkedLevel).val()))
+    filter.levels.push(Number($(checkedLevel).val()))
   })
-  currentTags = []
+  filter.tags = []
   $("input[name=tag]:checked").each((index, checkedTag) => {
-    currentTags.push($(checkedTag).val())
+    filter.tags.push($(checkedTag).val())
   })
+  filter.favorites.favorite = $("input[name=favorite]").prop("checked")
+  filter.favorites.nonfavorite = $("input[name=not-favorite]").prop("checked")
 
   resetWords()
   getAppliedWords()
@@ -129,8 +136,6 @@ function setWordToElement(word) {
 
 function getAppliedWords() {
   indexes = []
-  displaysFavorite = $("input[name=favorite]").prop("checked")
-  displaysNonFavorite = $("input[name=not-favorite]").prop("checked")
 
   for(wordLine in wordTable) {
     // Ignore the header of the file
@@ -215,16 +220,16 @@ function extractTags() {
     }
   })
 
-  currentTags = [...tags]
+  filter.tags = [...tags]
 }
 
 function meetsFilterConditions(word) {
-  if(currentLevels.length === 0 || currentTags.length === 0) {
+  if(filter.levels.length === 0 || filter.tags.length === 0) {
     return false
   }
-  if(currentLevels.includes(word.level)) {
+  if(filter.levels.includes(word.level)) {
     for(const wordTag of word.tags) {
-      if(currentTags.includes(wordTag)) {
+      if(filter.tags.includes(wordTag)) {
         return meetsFavorite(word)
       }
     }
@@ -234,9 +239,9 @@ function meetsFilterConditions(word) {
 }
 
 function meetsFavorite(word) {
-  if(displaysFavorite && favoriteIndex.includes(word.index)) {
+  if(filter.favorites.favorite && favoriteIndex.includes(word.index)) {
     return true
-  } else if(displaysNonFavorite && !favoriteIndex.includes(word.index)) {
+  } else if(filter.favorites.nonfavorite && !favoriteIndex.includes(word.index)) {
       return true
   } else {
     return false
@@ -245,41 +250,39 @@ function meetsFavorite(word) {
 
 function applyUserSettingToCheckbox() {
   $("input[name=level]").each((index, levelElement) => {
-    if(currentLevels.includes(Number($(levelElement).val()))) {
+    if(filter.levels.includes(Number($(levelElement).val()))) {
       $(levelElement).prop("checked", true)
     } else {
       $(levelElement).prop("checked", false)
     }
   })
   $("input[name=tag]").each((index, tagElement) => {
-    if(currentTags.includes($(tagElement).val())) {
+    if(filter.tags.includes($(tagElement).val())) {
       $(tagElement).prop("checked", true)
     } else {
       $(tagElement).prop("checked", false)
     }
   })
+  $("input[name=favorite]").prop("checked", filter.favorites.favorite)
+  $("input[name=not-favorite]").prop("checked", filter.favorites.nonfavorite)
 
   toggleSelectAllCheckbox()
 }
 
 function storeUserSetting() {
-  localStorage.setItem("levels", JSON.stringify(currentLevels))
-  localStorage.setItem("tags", JSON.stringify(currentTags))
+  localStorage.setItem("filter", JSON.stringify(filter))
+}
+
+function storeFavoriteWords() {
+  localStorage.setItem("favorite-words", JSON.stringify(favoriteIndex))
 }
 
 function loadUserSetting() {
-  let currentLevelsJSON = localStorage.getItem("levels")
+  let filterJSON = localStorage.getItem("filter")
 
   // If data exists
-  if(currentLevelsJSON !== null) {
-    currentLevels = JSON.parse(currentLevelsJSON)
-  }
-
-  let currentTagsJSON = localStorage.getItem("tags")
-
-  // If data exists
-  if(currentTagsJSON !== null) {
-    currentTags = JSON.parse(currentTagsJSON)
+  if(filterJSON !== null) {
+    filter = JSON.parse(filterJSON)
   }
 }
 
@@ -366,3 +369,4 @@ function CSVToArray (CSV_string) {
 
   return array;
 }
+
