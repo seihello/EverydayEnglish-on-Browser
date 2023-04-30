@@ -284,6 +284,13 @@ function loadUserSetting() {
   if(filterJSON !== null) {
     filter = JSON.parse(filterJSON)
   }
+
+  let favoriteWordsJSON = localStorage.getItem("favorite-words")
+
+  // If data exists
+  if(favoriteWordsJSON !== null) {
+    favoriteIndex = JSON.parse(favoriteWordsJSON)
+  }
 }
 
 function toggleSelectAllCheckbox() {
