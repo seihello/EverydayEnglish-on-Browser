@@ -10,7 +10,7 @@ let favoriteIndex = []
 let filter = {
   tags: [],
   levels: [1, 2, 3, 4, 5],
-  favorites: {favorite: false, nonfavorite: false}
+  favorites: {favorite: true, nonfavorite: true}
 }
 
 const wordTable = getWordTable()
@@ -66,6 +66,7 @@ $(function() {
       favoriteIndex.splice(indexOfDisplayedWord, 1)
     } else {
       favoriteIndex.push(indexes[currentIndex])
+      gsap.to("#favorite-image", { scale: 1.5, duration: .1, repeat: 1, yoyo: true })
     }
     updateFavoriteIcon(getWordByIndex(indexes[currentIndex]).index)
     storeFavoriteWords()
