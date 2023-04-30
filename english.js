@@ -66,7 +66,7 @@ $(function() {
       favoriteIndex.splice(indexOfDisplayedWord, 1)
     } else {
       favoriteIndex.push(indexes[currentIndex])
-      gsap.to("#favorite-image", { scale: 1.5, duration: .1, repeat: 1, yoyo: true })
+      gsap.to("#favorite-image", { scale: 1.2, duration: .08, repeat: 1, yoyo: true })
     }
     updateFavoriteIcon(getWordByIndex(indexes[currentIndex]).index)
     storeFavoriteWords()
