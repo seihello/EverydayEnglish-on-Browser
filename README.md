@@ -8,7 +8,7 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://user-images.githubusercontent.com/34885995/233893389-3b50fb9b-d453-40c3-a467-1176f38cf8dd.png" alt="project-screenshot" width="100%" height="400/">
+<img src="https://user-images.githubusercontent.com/34885995/233893389-3b50fb9b-d453-40c3-a467-1176f38cf8dd.png" alt="project-screenshot" width="100%" height="auto/">
 
   
   
